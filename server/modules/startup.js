@@ -1,6 +1,6 @@
 let startup = () => {
 	_setEnvironmentVariables();
-	_setBrowserPolicies();
+	//_setBrowserPolicies();
 	_generateAccounts();
 };
 

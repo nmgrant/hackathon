@@ -1,8 +1,6 @@
 <template name="dashboard">
 
 	<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
-	
-	<script src="http://w.soundcloud.com/player/api.js"></script>
 
 	<script type="text/javascript">
 		SC.initialize({
@@ -27,23 +25,33 @@
 <template name="song">
 	<div class="song">
 		<div id="widget" class="widget"></div>
+
+		<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+
 		<script type="text/javascript">
 			SC.initialize({
 				client_id: '9bbeeece5fa49fd38fa64a94cd2e0d2a'
 			});
 			var element = document.getElementById('widget');
-			SC.oEmbed(currentSong(), {
+			var current = currentSong();
+			SC.oEmbed(current.url, {
 				element: element
 			});
 
-			var widgetIframe = document.getElementById('widget');
-			var widget = SC.Widget(widgetIframe);
+			var widgetIframe = document.getElementById('widget'),
+				widget = SC.Widget(widgetIframe);
 
-			widget.bind(SC.Widget.Events.READY, function () {
-				widget.bind(SC.Widget.Events.FINISH, function () {
-					var remove = Meter.call('removeSong', currentSong());
-					widget.load(currentSong());
+			widget.bind(SC.Widget.Events.READY, function (current) {
+				widget.bind(SC.Widget.Events.FINISH, function (current) {
+					var remove = Method.call('removeSong', current);
+					current = currentSong();
+					widget.load(current.url, {
+						show_artwork: false
+					});
 				});
+			});
+			widget.bind(SC.Widget.Events.SEEK, function (e) {
+				alert('New seek position: ' + e.currentPosition);
 			});
 		</script>
 	</div>

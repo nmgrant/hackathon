@@ -8,7 +8,7 @@ currentSong = function () {
 
 	return Songs.findOne({
 		location: nearestLocation.name
-	}).url;
+	});
 }
 
 Template.dashboard.onCreated(function () {
