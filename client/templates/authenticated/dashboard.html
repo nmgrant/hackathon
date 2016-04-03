@@ -1,3 +1,11 @@
 <template name="dashboard">
-  <h3>Dashboard</h3>
+
+	<div>{{> map}}</div>
+	
+</template>
+
+<template name="map">
+	<div class="map-container">
+		{{#unless geolocationError}} {{> googleMap name="map" options=trendMapOptions}} {{else}} Geolocation failed: {{geolocationError}} {{/unless}}
+	</div>
 </template>
