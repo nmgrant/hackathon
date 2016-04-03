@@ -16,13 +16,11 @@ meteorhacks:npm
 
 themeteorchef:bert
 meteorhacks:ssr
-standard-minifiers
 
 
 npm-container
 ecmascript
 digilord:faker
-kadira:flow-router
 kadira:blaze-layout
 meteorhacks:fast-render
 meteor-base
@@ -36,5 +34,13 @@ aldeed:collection2
 tracker
 dburles:google-maps
 mdg:geolocation
-mrt:soundcloud
 mrt:accounts-soundcloud
+monbro:soundcloud-nodejs-api-wrapper
+service-configuration
+standard-minifier-css
+standard-minifier-js
+iron:router
+zimme:iron-router-active
+zimme:active-route
+andrei:iron-router-body-class
+u2622:persistent-session
