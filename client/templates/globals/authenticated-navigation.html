@@ -1,6 +1,7 @@
 <template name="authenticatedNavigation">
   <ul class="nav navbar-nav">
-    <li class="{{currentRoute 'dashboard'}}"><a href="{{pathFor 'dashboard'}}">Dashboard</a></li>
+    <li class="{{isActiveRoute 'dashboard'}}"><a href="{{pathFor 'dashboard'}}">Dashboard</a></li>
+    <li class="{{isActiveRoute 'location'}}"><a href="{{pathFor 'location'}}">Location</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li class="dropdown">

@@ -1,9 +1,5 @@
 let startup = () => {
-	GoogleMaps.load();
-//	Meteor.loginWithSoundcloud();
-//	SC.initialize({
-//    client_id: '9bbeeece5fa49fd38fa64a94cd2e0d2a'
-//  });
+	GoogleMaps.load({key: 'AIzaSyCb-hh_i9jql7C6hV3fg_Luua3nCkgyt8c'});
 };
 
 Modules.client.startup = startup;

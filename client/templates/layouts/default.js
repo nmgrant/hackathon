@@ -1,7 +1,7 @@
 const handleRedirect = ( routes, redirect ) => {
-	let currentRoute = FlowRouter.getRouteName();
+	let currentRoute = Router.current().route.getName();
 	if ( routes.indexOf( currentRoute ) > -1 ) {
-		FlowRouter.go( redirect );
+		Router.go( redirect );
 		return true;
 	}
 };
@@ -23,7 +23,6 @@ Template.default.helpers({
 	},
 	redirectPublic() {
 		return handleRedirect([
-			'index',
 			'dashboard'
 		], '/login' );
 	}

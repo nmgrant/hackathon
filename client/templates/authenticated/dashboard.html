@@ -1,11 +1,115 @@
 <template name="dashboard">
 
-	<div>{{> map}}</div>
+	<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
 	
+	<script src="http://w.soundcloud.com/player/api.js"></script>
+
+	<script type="text/javascript">
+		SC.initialize({
+			client_id: '9bbeeece5fa49fd38fa64a94cd2e0d2a'
+		});
+	</script>
+
+
+	<div class="feed">
+
+		<h3>{{location}}</h3> {{> song }}
+
+		<a href="#" id="add" class="btn btn-primary" padding="10px">Add Song</a>
+
+		<l href="#" id="list" class="btn btn-primary" padding="10px">List Songs</l>
+
+		{{> songModalTemplate }}
+	</div>
+
 </template>
 
-<template name="map">
-	<div class="map-container">
-		{{#unless geolocationError}} {{> googleMap name="map" options=trendMapOptions}} {{else}} Geolocation failed: {{geolocationError}} {{/unless}}
+<template name="song">
+	<div class="song">
+		<div id="widget" class="widget"></div>
+		<script type="text/javascript">
+			SC.initialize({
+				client_id: '9bbeeece5fa49fd38fa64a94cd2e0d2a'
+			});
+			var element = document.getElementById('widget');
+			SC.oEmbed(currentSong(), {
+				element: element
+			});
+
+			var widgetIframe = document.getElementById('widget');
+			var widget = SC.Widget(widgetIframe);
+
+			widget.bind(SC.Widget.Events.READY, function () {
+				widget.bind(SC.Widget.Events.FINISH, function () {
+					var remove = Meter.call('removeSong', currentSong());
+					widget.load(currentSong());
+				});
+			});
+		</script>
 	</div>
+</template>
+
+<template name="songTitle">
+	<div class="songTitle">
+		<label>
+			<p> Title: {{name}} </p>
+			<p> User: {{user}} </p>
+		</label>
+	</div>
+</template>
+
+<template name="songModalTemplate">
+	<div class="modal fade" id="songModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title">Add a Song</h4>
+				</div>
+
+				<div class="modal-body">
+					<label for="name">Name</label>
+					<input type="text" id="songName" />
+					<ul class="list-unstyled-results">
+						{{#each results}} {{> result}} {{/each}}
+					</ul>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="search">Search</button>
+					<button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Cancel</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="listModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title">List of Songs</h4>
+				</div>
+
+				<div class="modal-body">
+					<ul class="list-unstyled-results">
+						{{#each songs}} {{> songTitle}} {{/each}}
+					</ul>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Cancel</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="result">
+	<button type="button" class="result" id="result" title="{{title}}" username="{{user.username}}">
+		<p> Username: {{user.username}} </p>
+		<p> Title: {{title}} </p>
+	</button>
 </template>

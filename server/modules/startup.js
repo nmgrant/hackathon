@@ -11,6 +11,8 @@ var _setBrowserPolicies = () => {
 	BrowserPolicy.content.allowOriginForAll('*.gstatic.com');
 	BrowserPolicy.content.allowEval('https://ajax.googleapis.com');
 	BrowserPolicy.content.allowOriginForAll('*.googlecode.com');
+	BrowserPolicy.content.allowOriginForAll('https://*.soundcloud.com');
+	BrowserPolicy.content.allowOriginForAll('https://*.sndcdn.com');
 };
 
 var _generateAccounts = () => Modules.server.generateAccounts();
